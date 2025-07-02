@@ -136,7 +136,7 @@ if target_symbol in time_series_data:
             count = 0
 
         if count >= window_days and i + 1 < len(signal_values):
-            rebalance_signal[i + 1] = 1
+            rebalance_signal[i] = 1
 
     df[output_column_name] = rebalance_signal
     df[['m_date', output_column_name]].to_csv(
@@ -197,7 +197,7 @@ for row_index in range(strategy_signals.num_rows):
     weight = 1.0 / n_top_stocks if top_n_stocks else 0
 
     for stock in stock_columns:
-        stock_weights[stock][current_date] = weight if stock in dict(top_n_stocks) else 0
+        stock_weights[stock][date_column[row_index + 1].as_py()] = weight if stock in dict(top_n_stocks) else 0
 
 # Output portfolio
 portfolio_rows = [
